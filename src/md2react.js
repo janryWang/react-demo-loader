@@ -67,9 +67,11 @@ const toReactSource = ast => {
     }
   }
   var __MarkdownComponent__ = function(){
-    return React.createElement(React.Fragment,{},${ast.children
-      .map(node => compileElement(node))
-      .join(",")})
+    return React.createElement(
+      React.Fragment,
+      {},
+      ${ast.children.map(node => compileElement(node)).join(",")}
+    )
   }
   
   module.exports = __MarkdownComponent__
