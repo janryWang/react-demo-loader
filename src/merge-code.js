@@ -97,6 +97,11 @@ module.exports = async function(master, demos) {
       }
     }
   })
-  const { code } = await babel.transformFromAst(masterAst)
-  return code
+  const { ast, code, map, metadata, sourceType } = await babel.transformFromAst(
+    masterAst
+  )
+  if (map && (!map.sourcesContent || !map.sourcesContent.length)) {
+    map.sourcesContent = [source]
+  }
+  return { ast, code, map, metadata, sourceType }
 }

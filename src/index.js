@@ -12,8 +12,8 @@ module.exports = function demoLoader(source) {
         demos.push({ name, source })
       }
     })
-    .then(async code => {
-      const newCode = await mergeCode(code, demos)
-      callback(null, newCode)
+    .then(async source => {
+      const { map, code } = await mergeCode(source, demos)
+      callback(null, [code, map])
     })
 }

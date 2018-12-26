@@ -60,14 +60,14 @@ const toReactSource = ast => {
     var module = {
       exports:{}
     }
-    fn(module,exports)
-    var component = module.__esModule && module['default'] || module
+    fn(module,module.exports)
+    var component = module.exports.__esModule && module.exports['default'] || module.exports
     return typeof component === 'function' ? component : function(){
       return React.createElement('div',{},'Code snippet should export a component!')
     }
   }
   var __MarkdownComponent__ = function(){
-    return React.createElement(React.Fragment,${ast.children
+    return React.createElement(React.Fragment,{},${ast.children
       .map(node => compileElement(node))
       .join(",")})
   }
