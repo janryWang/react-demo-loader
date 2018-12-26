@@ -38,7 +38,9 @@ const compileElement = ast => {
       ast.isComponent ? ast.tagName : `"${ast.tagName}"`
     },{${compileAttributes(
       ast.tagName,
-      appendClassName(ast.tagName, ast.properties)
+      ast.isComponent
+        ? ast.properties
+        : appendClassName(ast.tagName, ast.properties)
     )}}${
       ast.children.length
         ? `,${ast.children.map(node => compileElement(node)).join(",")}`
