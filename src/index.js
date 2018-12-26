@@ -16,4 +16,5 @@ module.exports = function demoLoader(source) {
       const { map, code } = await mergeCode(source, demos)
       callback(null, code, map)
     })
+  return ""
 }
