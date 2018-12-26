@@ -1,8 +1,8 @@
 {
   "name": "react-demo-loader",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "webpack loader for react demo",
-  "main": "index.js",
+  "main": "/lib/index.js",
   "scripts": {
     "test": " cross-env NODE_ENV=test ava",
     "build": "babel src --out-dir lib",
