@@ -110,41 +110,53 @@ var __DefineComponent__ = function (fn) {
   };
 };
 
-var Demo_liran_0 = __DefineComponent__(function (module, exports) {
+var Demo_aeadj_0 = __DefineComponent__(function (module, exports) {
+  exports.__esModule = true;
+  exports.default = void 0;
+
   var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
   var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "react-dom"));
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  _reactDom.default.render(_react.default.createElement("div", null, "Hello world\uFF0C\u8FD9\u662F\u4E00\u4E2A\u6587\u6863\u63D2\u4EF6"), mountNode);
+  var _default = function _default() {
+    return _react.default.createElement("div", null, "Hello world\uFF0C\u8FD9\u662F\u4E00\u4E2A\u6587\u6863\u63D2\u4EF6");
+  };
+
+  exports.default = _default;
 });
 
-var Demo_xkfzu_1 = __DefineComponent__(function (module, exports) {
+var Demo_xeyfk_1 = __DefineComponent__(function (module, exports) {
+  exports.__esModule = true;
+  exports.default = _default;
+
   var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
-  var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "react-dom"));
+  var _reactDom = __webpack_require__(/*! react-dom */ "react-dom");
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  _reactDom.default.render(_react.default.createElement("div", null, "\u8FD9\u662F\u7B2C\u4E8C\u4E2A\u6587\u6863"), mountNode);
+  function _default() {
+    return _react.default.createElement("div", null, "\u8FD9\u662F\u7B2C\u4E8C\u4E2A\u6587\u6863");
+  }
 });
 
 var __MarkdownComponent__ = function () {
   return React.createElement(React.Fragment, React.createElement("h1", {
     className: "react-demo-h1"
   }, "Hello world"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nReactDOM.render(<div>Hello world，这是一个文档插件</div>, mountNode)\n",
+    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nexport default ()=><div>Hello world，这是一个文档插件</div>\n",
     className: "react-demo-ReactCodeSnippet"
-  }, React.createElement(Demo_liran_0, {
-    className: "react-demo-Demo_liran_0"
+  }, React.createElement(Demo_aeadj_0, {
+    className: "react-demo-Demo_aeadj_0"
   })), "\n", React.createElement("p", {
     className: "react-demo-p"
   }, "这是一个文档，它可以完全转换为js代码"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nReactDOM.render(<div>这是第二个文档</div>, mountNode)\n",
+    code: "import React from 'react'\nimport {render as renderDOM} from 'react-dom'\n\nrenderDOM(<div>这是第二个文档</div>, mountNode)\n",
     className: "react-demo-ReactCodeSnippet"
-  }, React.createElement(Demo_xkfzu_1, {
-    className: "react-demo-Demo_xkfzu_1"
+  }, React.createElement(Demo_xeyfk_1, {
+    className: "react-demo-Demo_xeyfk_1"
   })));
 };
 
