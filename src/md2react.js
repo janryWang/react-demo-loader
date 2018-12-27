@@ -56,7 +56,7 @@ const toReactSource = ast => {
   var React = require('react')
   var ReactDOM = require('react-dom')
   var ReactCodeSnippet = require('react-code-snippet')
-  var __DefineComponent__ = function(fn){
+  var __DEFINE__ = function(fn){
     var module = {
       exports:{}
     }
@@ -66,17 +66,14 @@ const toReactSource = ast => {
       return React.createElement('div',{},'Code snippet should export a component!')
     }
   }
-  var __MarkdownComponent__ = function(){
+  var __MARKDOWN__ = function(){
     return React.createElement(
       React.Fragment,
       {},
       ${ast.children.map(node => compileElement(node)).join(",")}
     )
   }
-  
-  module.exports = __MarkdownComponent__
-
-  
+  module.exports = __MARKDOWN__
   `
 }
 

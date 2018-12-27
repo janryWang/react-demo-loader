@@ -99,18 +99,18 @@ var ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
 
 var ReactCodeSnippet = __webpack_require__(/*! react-code-snippet */ "react-code-snippet");
 
-var __DefineComponent__ = function (fn) {
+var __DEFINE__ = function (fn) {
   var module = {
     exports: {}
   };
-  fn(module, exports);
-  var component = module.__esModule && module['default'] || module;
+  fn(module, module.exports);
+  var component = module.exports.__esModule && module.exports['default'] || module.exports;
   return typeof component === 'function' ? component : function () {
     return React.createElement('div', {}, 'Code snippet should export a component!');
   };
 };
 
-var Demo_aeadj_0 = __DefineComponent__(function (module, exports) {
+var Demo_hmhma_0 = __DEFINE__(function (module, exports) {
   exports.__esModule = true;
   exports.default = void 0;
 
@@ -127,7 +127,7 @@ var Demo_aeadj_0 = __DefineComponent__(function (module, exports) {
   exports.default = _default;
 });
 
-var Demo_xeyfk_1 = __DefineComponent__(function (module, exports) {
+var Demo_zlqkb_1 = __DEFINE__(function (module, exports) {
   exports.__esModule = true;
   exports.default = _default;
 
@@ -142,25 +142,19 @@ var Demo_xeyfk_1 = __DefineComponent__(function (module, exports) {
   }
 });
 
-var __MarkdownComponent__ = function () {
-  return React.createElement(React.Fragment, React.createElement("h1", {
+var __MARKDOWN__ = function () {
+  return React.createElement(React.Fragment, {}, React.createElement("h1", {
     className: "react-demo-h1"
   }, "Hello world"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nexport default ()=><div>Hello world，这是一个文档插件</div>\n",
-    className: "react-demo-ReactCodeSnippet"
-  }, React.createElement(Demo_aeadj_0, {
-    className: "react-demo-Demo_aeadj_0"
-  })), "\n", React.createElement("p", {
+    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nexport default ()=><div>Hello world，这是一个文档插件</div>\n"
+  }, React.createElement(Demo_hmhma_0, {})), "\n", React.createElement("p", {
     className: "react-demo-p"
   }, "这是一个文档，它可以完全转换为js代码"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport {render as renderDOM} from 'react-dom'\n\nrenderDOM(<div>这是第二个文档</div>, mountNode)\n",
-    className: "react-demo-ReactCodeSnippet"
-  }, React.createElement(Demo_xeyfk_1, {
-    className: "react-demo-Demo_xeyfk_1"
-  })));
+    code: "import React from 'react'\nimport {render as renderDOM} from 'react-dom'\n\nrenderDOM(<div>这是第二个文档</div>, mountNode)\n"
+  }, React.createElement(Demo_zlqkb_1, {})));
 };
 
-module.exports = __MarkdownComponent__;
+module.exports = __MARKDOWN__;
 
 /***/ }),
 

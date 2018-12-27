@@ -76,20 +76,22 @@ const parseCode = source => {
 
 module.exports = async function(master, demos) {
   const masterAst = parseCode(master)
-  const demosAst = demos.map(({ name, source }) => {
-    const ast = transformDemoAst(parseCode(source))
-    const demoAst = babel.transformFromAstSync(ast, "", babelConf).ast
-    return template.ast`
-      var ${name} = __DefineComponent__(function(module,exports){
+  const demosAst = await Promise.all(
+    demos.map(async ({ name, source }) => {
+      const ast = transformDemoAst(parseCode(source))
+      const demoAst = await babel.transformFromAst(ast, "", babelConf).ast
+      return template.ast`
+      var ${name} = __DEFINE__(function(module,exports){
         ${demoAst.program.body}
       })
     `
-  })
+    })
+  )
   traverse(masterAst, {
     enter(path) {
       if (
         path.isVariableDeclarator() &&
-        get(path.node, "id.name") === "__MarkdownComponent__"
+        get(path.node, "id.name") === "__MARKDOWN__"
       ) {
         demosAst.forEach(node => {
           path.parentPath.insertBefore(node)
