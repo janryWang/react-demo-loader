@@ -101,7 +101,7 @@ module.exports = function(options) {
                 justCode: isNotJsx,
                 lang
               },
-              children: isNotJsx
+              children: !isNotJsx
                 ? [
                     u("element", {
                       tagName: component,
