@@ -87,29 +87,32 @@ module.exports = function(options) {
             var value = node.value ? detab(node.value + "\n") : ""
             var lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
             var props = {}
-
             if (lang) {
               props.className = ["language-" + lang]
             }
-
             const component = `Demo_${randomName()}_${index++}`
 
             let _node = u("element", {
               tagName: "ReactCodeSnippet",
               isComponent: true,
               properties: {
-                code: value
+                code: value,
+                justCode: lang !== "jsx",
+                lang
               },
-              children: [
-                u("element", {
-                  tagName: component,
-                  isComponent: true,
-                  properties: {},
-                  children: []
-                })
-              ]
+              children:
+                lang === "jsx"
+                  ? [
+                      u("element", {
+                        tagName: component,
+                        isComponent: true,
+                        properties: {},
+                        children: []
+                      })
+                    ]
+                  : []
             })
-            if (options && options.onCode) {
+            if (lang === "jsx" && options && options.onCode) {
               options.onCode(component, node.value)
             }
             return _node

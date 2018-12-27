@@ -110,48 +110,20 @@ var __DEFINE__ = function (fn) {
   };
 };
 
-var Demo_hmhma_0 = __DEFINE__(function (module, exports) {
-  exports.__esModule = true;
-  exports.default = void 0;
-
-  var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
-
-  var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "react-dom"));
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var _default = function _default() {
-    return _react.default.createElement("div", null, "Hello world\uFF0C\u8FD9\u662F\u4E00\u4E2A\u6587\u6863\u63D2\u4EF6");
-  };
-
-  exports.default = _default;
-});
-
-var Demo_zlqkb_1 = __DEFINE__(function (module, exports) {
-  exports.__esModule = true;
-  exports.default = _default;
-
-  var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
-
-  var _reactDom = __webpack_require__(/*! react-dom */ "react-dom");
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _default() {
-    return _react.default.createElement("div", null, "\u8FD9\u662F\u7B2C\u4E8C\u4E2A\u6587\u6863");
-  }
-});
-
 var __MARKDOWN__ = function () {
   return React.createElement(React.Fragment, {}, React.createElement("h1", {
     className: "react-demo-h1"
-  }, "Hello world"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport ReactDOM from 'react-dom'\n\nexport default ()=><div>Hello world，这是一个文档插件</div>\n"
-  }, React.createElement(Demo_hmhma_0, {})), "\n", React.createElement("p", {
-    className: "react-demo-p"
-  }, "这是一个文档，它可以完全转换为js代码"), "\n", React.createElement(ReactCodeSnippet, {
-    code: "import React from 'react'\nimport {render as renderDOM} from 'react-dom'\n\nrenderDOM(<div>这是第二个文档</div>, mountNode)\n"
-  }, React.createElement(Demo_zlqkb_1, {})));
+  }, "Clean Node Modules"), "\n", React.createElement("h3", {
+    className: "react-demo-h3"
+  }, "Install"), "\n", React.createElement(ReactCodeSnippet, {
+    code: "npm install -g serve-demo\n",
+    justCode: true
+  }), "\n", React.createElement("h3", {
+    className: "react-demo-h3"
+  }, "Usage"), "\n", React.createElement(ReactCodeSnippet, {
+    code: "serve-demo ~\n",
+    justCode: true
+  }));
 };
 
 module.exports = __MARKDOWN__;
