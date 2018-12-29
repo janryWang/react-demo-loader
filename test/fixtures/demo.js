@@ -110,40 +110,47 @@ var __DEFINE__ = function (fn) {
   };
 };
 
-var Demo_dhako_2 = __DEFINE__(function (module, exports) {
+var Demo_txjve_2 = __DEFINE__(function (module, exports) {
   ReactDOM.render(React.createElement("div", null, "Hello world"));
 });
 
-var Demo_mqzoc_3 = __DEFINE__(function (module, exports) {
+var Demo_gdixm_3 = __DEFINE__(function (module, exports) {
   ReactDOM.render(React.createElement("div", null, "Hello world123"));
 });
 
 var __MARKDOWN__ = function () {
   return React.createElement(React.Fragment, {}, React.createElement("h1", {
+    id: "clean-node-modules",
     className: "react-demo-h1"
-  }, "Clean Node Modules"), "\n", React.createElement("h3", {
+  }, "Clean Node Modules"), React.createElement("h3", {
+    id: "install",
     className: "react-demo-h3"
-  }, "Install"), "\n", React.createElement(ReactCodeSnippet, {
+  }, "Install"), React.createElement(ReactCodeSnippet, {
     code: "npm install -g serve-demo\n",
     justCode: true,
     lang: "bash"
-  }, React.createElement(Demo_fzfkw_0, {})), "\n", React.createElement("h3", {
+  }), React.createElement("h3", {
+    id: "usage",
     className: "react-demo-h3"
-  }, "Usage"), "\n", React.createElement(ReactCodeSnippet, {
+  }, "Usage"), React.createElement(ReactCodeSnippet, {
     code: "serve-demo ~\n",
     justCode: true,
     lang: "bash"
-  }, React.createElement(Demo_uaazz_1, {})), "\n", React.createElement(ReactCodeSnippet, {
+  }), React.createElement(ReactCodeSnippet, {
     code: "ReactDOM.render(<div>Hello world</div>)\n",
     justCode: false,
     lang: "jsx"
-  }), "\n", React.createElement(ReactCodeSnippet, {
+  }, React.createElement(Demo_txjve_2, {})), React.createElement(ReactCodeSnippet, {
     code: "ReactDOM.render(<div>Hello world123</div>)\n",
     justCode: false,
     lang: "jsx"
-  }));
+  }, React.createElement(Demo_gdixm_3, {})));
 };
 
+__MARKDOWN__.meta = {
+  "metadata": "this is metadata",
+  "tags": ["one", "two"]
+};
 module.exports = __MARKDOWN__;
 
 /***/ }),

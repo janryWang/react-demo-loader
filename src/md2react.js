@@ -7,6 +7,8 @@ const randomName = () => generate("abcdefghijklmnopqrstuvwxyz", 5)
 
 const headingRE = /h\d/
 
+const wsRE = /^\s*$/
+
 const compileAttributeValue = (tag, key, value) => {
   if (key == "className") {
     const className = Array.isArray(value) ? value.join(" ") : value
@@ -43,15 +45,24 @@ const compileElement = ast => {
         : appendClassName(ast.tagName, ast.properties)
     )}}${
       ast.children.length
-        ? `,${ast.children.map(node => compileElement(node)).join(",")}`
+        ? `,${ast.children
+            .reduce((buf, node) => {
+              let compiled = compileElement(node)
+              return compiled ? buf.concat(compiled) : buf
+            }, [])
+            .join(",")}`
         : ""
     })`
   } else if (ast.type === "text") {
-    return JSON.stringify(ast.value)
+    return wsRE.test(ast.value) ? "" : JSON.stringify(ast.value)
+  } else {
+    return `React.createElement("div",{dangerouslySetInnerHTML:{__html:${JSON.stringify(
+      ast.value
+    )}}})`
   }
 }
 
-const toReactSource = ast => {
+const toReactSource = (ast, yaml) => {
   return `
   var React = require('react')
   var ReactDOM = require('react-dom')
@@ -70,9 +81,15 @@ const toReactSource = ast => {
     return React.createElement(
       React.Fragment,
       {},
-      ${ast.children.map(node => compileElement(node)).join(",")}
+      ${ast.children
+        .reduce((buf, node) => {
+          let compiled = compileElement(node)
+          return compiled ? buf.concat(compiled) : buf
+        }, [])
+        .join(",")}
     )
   }
+  __MARKDOWN__.meta = ${JSON.stringify(yaml)}
   module.exports = __MARKDOWN__
   `
 }
@@ -80,45 +97,49 @@ const toReactSource = ast => {
 module.exports = function(options) {
   let index = 0
   this.Compiler = ast => {
-    return toReactSource(
-      toHAST(ast, {
-        handlers: {
-          code(h, node) {
-            var value = node.value ? detab(node.value + "\n") : ""
-            var lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
-            var props = {}
-            if (lang) {
-              lang = lang[0]
-              props.className = ["language-" + lang]
-            }
-            const component = `Demo_${randomName()}_${index++}`
-            const isNotJsx = (lang && lang !== "jsx") || !lang
-            let _node = u("element", {
-              tagName: "ReactCodeSnippet",
-              isComponent: true,
-              properties: {
-                code: value,
-                justCode: isNotJsx,
-                lang
-              },
-              children: !isNotJsx
-                ? [
-                    u("element", {
-                      tagName: component,
-                      isComponent: true,
-                      properties: {},
-                      children: []
-                    })
-                  ]
-                : []
-            })
-            if (!isNotJsx && options && options.onCode) {
-              options.onCode(component, node.value)
-            }
-            return _node
+    let yaml = {}
+    let newAst = toHAST(ast, {
+      allowDangerousHTML: true,
+      handlers: {
+        yaml(h, node) {
+          yaml = node.data.parsedValue
+        },
+        code(h, node) {
+          var value = node.value ? detab(node.value + "\n") : ""
+          var lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
+          var props = {}
+          if (lang) {
+            lang = lang[0]
+            props.className = ["language-" + lang]
           }
+          const component = `Demo_${randomName()}_${index++}`
+          const isNotJsx = (lang && lang !== "jsx") || !lang
+          let _node = u("element", {
+            tagName: "ReactCodeSnippet",
+            isComponent: true,
+            properties: {
+              code: value,
+              justCode: isNotJsx,
+              lang
+            },
+            children: !isNotJsx
+              ? [
+                  u("element", {
+                    tagName: component,
+                    isComponent: true,
+                    properties: {},
+                    children: []
+                  })
+                ]
+              : []
+          })
+          if (!isNotJsx && options && options.onCode) {
+            options.onCode(component, node.value)
+          }
+          return _node
         }
-      })
-    )
+      }
+    })
+    return toReactSource(newAst, yaml)
   }
 }

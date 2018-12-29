@@ -5,11 +5,17 @@
  */
 const unified = require("unified")
 const markdown = require("remark-parse")
+const matter = require("remark-frontmatter")
+const parseFormatter = require("remark-parse-yaml")
+const slug = require("remark-slug")
 const md2react = require("./md2react")
 
 exports.transform = async (code, options) => {
   const parsed = await unified()
-    .use(markdown)
+    .use(markdown, { type: "yaml", marker: "-" })
+    .use(matter)
+    .use(parseFormatter)
+    .use(slug)
     .use(md2react, options)
     .process(code)
   return parsed.contents
