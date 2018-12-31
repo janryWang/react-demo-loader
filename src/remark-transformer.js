@@ -8,9 +8,9 @@ const markdown = require("remark-parse")
 const matter = require("remark-frontmatter")
 const parseFormatter = require("remark-parse-yaml")
 const slug = require("remark-slug")
-const md2react = require("./md2react")
+const md2react = require("./remark-react")
 
-exports.transform = async (code, options) => {
+module.exports = async (code, options) => {
   const parsed = await unified()
     .use(markdown, { type: "yaml", marker: "-" })
     .use(matter)

@@ -86,6 +86,57 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./test/fixtures/Button.js":
+/*!*********************************!*\
+  !*** ./test/fixtures/Button.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Button = function Button() {
+  return React.createElement("button", null, "This is Button");
+};
+
+Button.propTypes = {
+  /**
+    Label for the button.
+  */
+  label: React.PropTypes.string,
+
+  /**
+    Triggered when clicked on the button.
+  */
+  onClick: React.PropTypes.func
+};
+/* harmony default export */ __webpack_exports__["default"] = (Button);
+Button.__docgenInfo = {
+  "description": "",
+  "methods": [],
+  "displayName": "Button",
+  "props": {
+    "label": {
+      "type": {
+        "name": "custom",
+        "raw": "React.PropTypes.string"
+      },
+      "required": false,
+      "description": "Label for the button."
+    },
+    "onClick": {
+      "type": {
+        "name": "custom",
+        "raw": "React.PropTypes.func"
+      },
+      "required": false,
+      "description": "Triggered when clicked on the button."
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./test/fixtures/demo.md":
 /*!*******************************!*\
   !*** ./test/fixtures/demo.md ***!
@@ -99,6 +150,8 @@ var ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
 
 var ReactCodeSnippet = __webpack_require__(/*! react-code-snippet */ "react-code-snippet");
 
+var ReactPropsTable = __webpack_require__(/*! react-props-table */ "react-props-table");
+
 var __DEFINE__ = function (fn) {
   var module = {
     exports: {}
@@ -110,11 +163,11 @@ var __DEFINE__ = function (fn) {
   };
 };
 
-var Demo_txjve_2 = __DEFINE__(function (module, exports) {
+var Demo_pqrar_2 = __DEFINE__(function (module, exports) {
   ReactDOM.render(React.createElement("div", null, "Hello world"));
 });
 
-var Demo_gdixm_3 = __DEFINE__(function (module, exports) {
+var Demo_jyavb_3 = __DEFINE__(function (module, exports) {
   ReactDOM.render(React.createElement("div", null, "Hello world123"));
 });
 
@@ -140,11 +193,66 @@ var __MARKDOWN__ = function () {
     code: "ReactDOM.render(<div>Hello world</div>)\n",
     justCode: false,
     lang: "jsx"
-  }, React.createElement(Demo_txjve_2, {})), React.createElement(ReactCodeSnippet, {
+  }, React.createElement(Demo_pqrar_2, {})), React.createElement(ReactCodeSnippet, {
     code: "ReactDOM.render(<div>Hello world123</div>)\n",
     justCode: false,
     lang: "jsx"
-  }, React.createElement(Demo_gdixm_3, {})));
+  }, React.createElement(Demo_jyavb_3, {})), React.createElement("div", {
+    className: "react-demo-div"
+  }, React.createElement("div", {
+    className: "asdad react-demo-div"
+  }, React.createElement("div", {
+    className: "react-demo-div"
+  }), React.createElement(ReactPropsTable, {
+    of: __webpack_require__(/*! ./Button.js */ "./test/fixtures/Button.js")
+  }, React.createElement("table", {
+    className: "PropsTable react-demo-table"
+  }), React.createElement("thead", {
+    className: "react-demo-thead"
+  }), React.createElement("tr", {
+    className: "react-demo-tr"
+  }), React.createElement("th", {
+    className: "PropsTable--property react-demo-th"
+  }), "Property", React.createElement("th", {
+    className: "PropsTable--type react-demo-th"
+  }), "Type", React.createElement("th", {
+    className: "PropsTable--required react-demo-th"
+  }), "Required", React.createElement("th", {
+    className: "PropsTable--default react-demo-th"
+  }), "Default", React.createElement("th", {
+    width: "40%",
+    className: "PropsTable--description react-demo-th"
+  }), "Description", React.createElement("tbody", {
+    className: "react-demo-tbody"
+  }), React.createElement("tr", {
+    className: "react-demo-tr"
+  }), React.createElement("td", {
+    className: "react-demo-td"
+  }), "label", React.createElement("td", {
+    className: "react-demo-td"
+  }), "Custom", React.createElement("td", {
+    className: "react-demo-td"
+  }), "false", React.createElement("td", {
+    className: "react-demo-td"
+  }), React.createElement("em", {
+    className: "react-demo-em"
+  }), "-", React.createElement("td", {
+    className: "react-demo-td"
+  }), "Label for the button.", React.createElement("tr", {
+    className: "react-demo-tr"
+  }), React.createElement("td", {
+    className: "react-demo-td"
+  }), "onClick", React.createElement("td", {
+    className: "react-demo-td"
+  }), "Custom", React.createElement("td", {
+    className: "react-demo-td"
+  }), "false", React.createElement("td", {
+    className: "react-demo-td"
+  }), React.createElement("em", {
+    className: "react-demo-em"
+  }), "-", React.createElement("td", {
+    className: "react-demo-td"
+  }), "Triggered when clicked on the button."))));
 };
 
 __MARKDOWN__.meta = {
@@ -185,6 +293,17 @@ module.exports = react-code-snippet;
 /***/ (function(module, exports) {
 
 module.exports = react-dom;
+
+/***/ }),
+
+/***/ "react-props-table":
+/*!************************************!*\
+  !*** external "react-props-table" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = react-props-table;
 
 /***/ })
 

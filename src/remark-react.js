@@ -1,9 +1,13 @@
 const toHAST = require("mdast-util-to-hast")
 const detab = require("detab")
+const path = require("path")
+const fs = require("fs-extra")
 const generate = require("nanoid/generate")
+const commentMaker = require("mdast-comment-marker")
 const u = require("unist-builder")
-
+const transfromHTMLAST = require("./html-transformer")
 const randomName = () => generate("abcdefghijklmnopqrstuvwxyz", 5)
+const { renderTablePropsToFile } = require("./utils")
 
 const headingRE = /h\d/
 
@@ -34,7 +38,34 @@ const appendClassName = (tag, props) => {
   return props
 }
 
-const compileElement = ast => {
+const createMacroElement = (node, opts) => {
+  if (node.value[1] === "COMPONENT_PROPS" && node.value[2]) {
+    renderTablePropsToFile(
+      opts.resourcePath,
+      path.resolve(path.dirname(opts.resourcePath), node.value[2]),
+      node.position.end.offset,
+      node.position.after.start.offset
+    )
+    return `
+    React.createElement(ReactPropsTable,{
+      of:require("${node.value[2]}")
+    }${
+      node.children.length
+        ? `,${node.children
+            .reduce((buf, node) => {
+              let compiled = compileElement(node)
+              return compiled ? buf.concat(compiled) : buf
+            }, [])
+            .join(",")}`
+        : ""
+    })
+    `
+  }
+
+  return ""
+}
+
+const compileElement = (ast, opts) => {
   if (ast.type === "element") {
     return `React.createElement(${
       ast.isComponent ? ast.tagName : `"${ast.tagName}"`
@@ -42,12 +73,13 @@ const compileElement = ast => {
       ast.tagName,
       ast.isComponent
         ? ast.properties
-        : appendClassName(ast.tagName, ast.properties)
+        : appendClassName(ast.tagName, ast.properties),
+      opts
     )}}${
       ast.children.length
         ? `,${ast.children
             .reduce((buf, node) => {
-              let compiled = compileElement(node)
+              let compiled = compileElement(node, opts)
               return compiled ? buf.concat(compiled) : buf
             }, [])
             .join(",")}`
@@ -55,6 +87,10 @@ const compileElement = ast => {
     })`
   } else if (ast.type === "text") {
     return wsRE.test(ast.value) ? "" : JSON.stringify(ast.value)
+  } else if (ast.type === "comment") {
+    return
+  } else if (ast.type === "macro") {
+    return createMacroElement(ast, opts)
   } else {
     return `React.createElement("div",{dangerouslySetInnerHTML:{__html:${JSON.stringify(
       ast.value
@@ -62,11 +98,12 @@ const compileElement = ast => {
   }
 }
 
-const toReactSource = (ast, yaml) => {
+const toReactSource = (ast, yaml, opts) => {
   return `
   var React = require('react')
   var ReactDOM = require('react-dom')
   var ReactCodeSnippet = require('react-code-snippet')
+  var ReactPropsTable = require('react-props-table')
   var __DEFINE__ = function(fn){
     var module = {
       exports:{}
@@ -83,7 +120,7 @@ const toReactSource = (ast, yaml) => {
       {},
       ${ast.children
         .reduce((buf, node) => {
-          let compiled = compileElement(node)
+          let compiled = compileElement(node, opts)
           return compiled ? buf.concat(compiled) : buf
         }, [])
         .join(",")}
@@ -95,7 +132,8 @@ const toReactSource = (ast, yaml) => {
 }
 
 module.exports = function(options) {
-  let index = 0
+  let identify_index = 0
+
   this.Compiler = ast => {
     let yaml = {}
     let newAst = toHAST(ast, {
@@ -104,17 +142,20 @@ module.exports = function(options) {
         yaml(h, node) {
           yaml = node.data.parsedValue
         },
+        html(h, node) {
+          return transfromHTMLAST(h, node)
+        },
         code(h, node) {
-          var value = node.value ? detab(node.value + "\n") : ""
-          var lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
-          var props = {}
+          let value = node.value ? detab(node.value + "\n") : ""
+          let lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
+          const props = {}
           if (lang) {
             lang = lang[0]
             props.className = ["language-" + lang]
           }
-          const component = `Demo_${randomName()}_${index++}`
+          const component = `Demo_${randomName()}_${identify_index++}`
           const isNotJsx = (lang && lang !== "jsx") || !lang
-          let _node = u("element", {
+          const _node = u("element", {
             tagName: "ReactCodeSnippet",
             isComponent: true,
             properties: {
@@ -137,9 +178,12 @@ module.exports = function(options) {
             options.onCode(component, node.value)
           }
           return _node
+        },
+        block_comment(h, node) {
+          console.log(node)
         }
       }
     })
-    return toReactSource(newAst, yaml)
+    return toReactSource(newAst, yaml, options)
   }
 }

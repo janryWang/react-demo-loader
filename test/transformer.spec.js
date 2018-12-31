@@ -28,7 +28,7 @@ test('sample', async t => {
               }
             ]
           },
-          externals:['react','react-dom','react-code-snippet']
+          externals:['react','react-dom','react-code-snippet','react-props-table']
         },
         (err, stats) => {
           if (err || stats.hasErrors()) {
