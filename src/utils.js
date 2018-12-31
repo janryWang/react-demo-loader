@@ -26,6 +26,6 @@ export const renderTablePropsToFile = async (
     "\n" +
     file.slice(endOffset)
   if (newContent !== file) {
-    await fs.writeFile(filePath)
+    await fs.writeFile(filePath, newContent)
   }
 }

@@ -1,29 +1,18 @@
-import React, { Fragment } from "react"
-import PropTypes from 'prop-types'
-const readmeRE = /readme.md/i
 
-const ReactDocRenderer = ({docs})=>{
-  const readmes = docs.filter(({path})=>readmeRE.test(path))
-  const normals = docs.filter(({path})=>!readmeRE.test(path))
-  return (
-    <Fragment>
-      {normals.map(({component})=>{
-        return React.createElement(component)
-      })}
-      {readmes.map(({component})=>{
-        return React.createElement(component)
-      })}
-    </Fragment>
-  )
+const Button = ()=>{
+  return <button>This is Button</button>
 }
 
-ReactDocRenderer.propTypes = {
+Button.propTypes = {
   /**
-    This is document collection.
-    Array<{path:String,component:Function,meta:Object}>
+    Label for the button.
   */
-  docs: PropTypes.array.isRequired,
+  label: React.PropTypes.string,
 
-}
+  /**
+    Triggered when clicked on the button.
+  */
+  onClick: React.PropTypes.func,
+};
 
-module.exports = ReactDocRenderer
+export default Button
