@@ -15,16 +15,17 @@ export const renderTablePropsToFile = async (
   const component = await fs.readFile(componentPath, "utf-8")
   const file = await fs.readFile(filePath, "utf-8")
   const __docgenInfo = docGen.parse(component)
-  await fs.writeFile(
-    filePath,
+  const newContent =
     file.slice(0, startOffset) +
-      "\n" +
-      ReactDOMServer.renderToString(
-        React.createElement(ReactPropsTable, {
-          of: { __docgenInfo }
-        })
-      ) +
-      "\n" +
-      file.slice(endOffset)
-  )
+    "\n" +
+    ReactDOMServer.renderToString(
+      React.createElement(ReactPropsTable, {
+        of: { __docgenInfo }
+      })
+    ) +
+    "\n" +
+    file.slice(endOffset)
+  if (newContent !== file) {
+    await fs.writeFile(filePath)
+  }
 }
