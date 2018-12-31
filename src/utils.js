@@ -15,7 +15,6 @@ export const renderTablePropsToFile = async (
   const component = await fs.readFile(componentPath, "utf-8")
   const file = await fs.readFile(filePath, "utf-8")
   const __docgenInfo = docGen.parse(component)
-  console.log(__docgenInfo)
   await fs.writeFile(
     filePath,
     file.slice(0, startOffset) +

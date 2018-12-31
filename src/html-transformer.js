@@ -66,15 +66,14 @@ const updatePostion = (origin, target, root) => {
 const blockStartRE = /BLOCK_START/i
 const blockEndRE = /BLOCK_END/i
 
-module.exports = (h, node) => {
+module.exports = (h, node, pathStack) => {
   const origin = node
   const ast = parse5.parseFragment(node.value, { sourceCodeLocationInfo: true })
   const hast = fromParse5(ast, { file: node.value, verbose: true })
   hast.tagName = "div"
   hast.type = "element"
   hast.properties = {}
-  let pathStack = [],
-    currentPath
+
   traverse(hast, path => {
     updatePostion(origin, path.node, hast)
     if (path.node.type === "comment" && blockStartRE.test(path.node.value)) {
@@ -85,7 +84,6 @@ module.exports = (h, node) => {
         .map(s => s.trim())
       path.node.children = []
       pathStack.push(path)
-      currentPath = path
     } else if (
       path.node.type === "comment" &&
       blockEndRE.test(path.node.value)
@@ -94,9 +92,8 @@ module.exports = (h, node) => {
       if (startPath) {
         startPath.node.position.after = path.node.position
       }
-      currentPath = null
     } else if (pathStack.length) {
-      currentPath.append(path)
+      pathStack[pathStack.length - 1].append(path)
     }
   })
   return h.augment(node, hast)

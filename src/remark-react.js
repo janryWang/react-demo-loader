@@ -137,6 +137,7 @@ module.exports = function(options) {
 
   this.Compiler = ast => {
     let yaml = {}
+    let pathStack = []
     let newAst = toHAST(ast, {
       allowDangerousHTML: true,
       handlers: {
@@ -144,7 +145,7 @@ module.exports = function(options) {
           yaml = node.data.parsedValue
         },
         html(h, node) {
-          return transfromHTMLAST(h, node)
+          return transfromHTMLAST(h, node, pathStack)
         },
         code(h, node) {
           let value = node.value ? detab(node.value + "\n") : ""
