@@ -40,12 +40,13 @@ const appendClassName = (tag, props) => {
 
 const createMacroElement = (node, opts) => {
   if (node.value[1] === "COMPONENT_PROPS" && node.value[2]) {
-    renderTablePropsToFile(
-      opts.resourcePath,
-      path.resolve(path.dirname(opts.resourcePath), node.value[2]),
-      node.position.end.offset,
-      node.position.after.start.offset
-    )
+    node.position.after &&
+      renderTablePropsToFile(
+        opts.resourcePath,
+        path.resolve(path.dirname(opts.resourcePath), node.value[2]),
+        node.position.end.offset,
+        node.position.after.start.offset
+      )
     return `
     React.createElement(ReactPropsTable,{
       of:require("${node.value[2]}")
