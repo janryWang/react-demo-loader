@@ -8,7 +8,8 @@ const u = require("unist-builder")
 const transfromHTMLAST = require("./html-transformer")
 const randomName = () => generate("abcdefghijklmnopqrstuvwxyz", 5)
 const { renderTablePropsToFile } = require("./utils")
-
+const email = require("git-user-email")
+const username = require("git-user-name")
 const headingRE = /h\d/
 
 const wsRE = /^\s*$/
@@ -138,11 +139,13 @@ module.exports = function(options) {
   this.Compiler = ast => {
     let yaml = {}
     let pathStack = []
+    yaml.username = username()
+    yaml.email = email()
     let newAst = toHAST(ast, {
       allowDangerousHTML: true,
       handlers: {
         yaml(h, node) {
-          yaml = node.data.parsedValue
+          Object.assign(yaml, node.data.parsedValue)
         },
         html(h, node) {
           return transfromHTMLAST(h, node, pathStack)
