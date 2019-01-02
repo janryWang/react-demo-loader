@@ -77,7 +77,16 @@ const transformDemoAst = ast => {
 const parseCode = source => {
   return parser.parse(source, {
     sourceType: "module",
-    plugins: ["jsx", "flow"]
+    plugins: [
+      "jsx",
+      "flow",
+      "classProperties",
+      "decorators-legacy",
+      "dynamicImport",
+      "exportDefaultFrom",
+      "exportDefaultFrom",
+      "exportDefaultFrom"
+    ]
   })
 }
 
