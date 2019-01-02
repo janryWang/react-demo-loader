@@ -5,7 +5,10 @@ const babel = require("@babel/core")
 const get = require("lodash.get")
 
 const babelConf = {
-  presets: [["@babel/preset-env", { loose: true }], "@babel/preset-react"],
+  presets: [
+    [require.resolve("@babel/preset-env"), { loose: true }],
+    require.resolve("@babel/preset-react")
+  ],
   ast: true
 }
 
