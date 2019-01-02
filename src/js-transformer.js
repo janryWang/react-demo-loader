@@ -9,6 +9,10 @@ const babelConf = {
     [require.resolve("@babel/preset-env"), { loose: true }],
     require.resolve("@babel/preset-react")
   ],
+  plugins: [
+    [require.resolve("@babel/plugin-proposal-decorators"), { legacy: true }],
+    require.resolve("@babel/plugin-proposal-class-properties")
+  ],
   ast: true
 }
 
