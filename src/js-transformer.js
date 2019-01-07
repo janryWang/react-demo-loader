@@ -11,7 +11,8 @@ const babelConf = {
   ],
   plugins: [
     [require.resolve("@babel/plugin-proposal-decorators"), { legacy: true }],
-    require.resolve("@babel/plugin-proposal-class-properties")
+    require.resolve("@babel/plugin-proposal-class-properties"),
+    require.resolve("@babel/plugin-syntax-dynamic-import")
   ],
   ast: true
 }
