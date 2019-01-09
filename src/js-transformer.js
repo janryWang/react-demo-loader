@@ -76,32 +76,42 @@ const transformDemoAst = ast => {
 }
 
 const parseCode = source => {
-  return parser.parse(source, {
-    sourceType: "module",
-    plugins: [
-      "jsx",
-      "flow",
-      "classProperties",
-      "decorators-legacy",
-      "dynamicImport",
-      "exportDefaultFrom",
-      "exportDefaultFrom",
-      "exportDefaultFrom"
-    ]
-  })
+  try {
+    return parser.parse(source, {
+      sourceType: "module",
+      plugins: [
+        "jsx",
+        "flow",
+        "classProperties",
+        "decorators-legacy",
+        "dynamicImport",
+        "exportDefaultFrom",
+        "exportDefaultFrom",
+        "exportDefaultFrom"
+      ]
+    })
+  } catch (e) {
+    e.source = e
+    throw e
+  }
 }
 
 module.exports = async function(master, demos) {
   const masterAst = parseCode(master)
   const demosAst = await Promise.all(
     demos.map(async ({ name, source }) => {
-      const ast = transformDemoAst(parseCode(source))
-      const demoAst = await babel.transformFromAst(ast, "", babelConf).ast
-      return template.ast`
+      try {
+        const ast = transformDemoAst(parseCode(source))
+        const demoAst = await babel.transformFromAst(ast, "", babelConf).ast
+        return template.ast`
       var ${name} = __DEFINE__(function(module,exports){
         ${demoAst.program.body}
       })
     `
+      } catch (e) {
+        e.source = source
+        throw e
+      }
     })
   )
   traverse(masterAst, {
