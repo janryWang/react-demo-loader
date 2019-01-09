@@ -102,10 +102,10 @@ const compileElement = (ast, opts) => {
 
 const toReactSource = (ast, yaml, opts) => {
   return `
-  var React = require('react')
-  var ReactDOM = require('react-dom')
-  var ReactCodeSnippet = require('react-code-snippet')
-  var ReactPropsTable = require('react-props-table')
+  var React = require('${require.resolve("react")}')
+  var ReactDOM = require('${require.resolve("react-dom")}')
+  var ReactCodeSnippet = require('${require.resolve("react-code-snippet")}')
+  var ReactPropsTable = require('${require.resolve("react-props-table")}')
   var __DEFINE__ = function(fn){
     var module = {
       exports:{}
