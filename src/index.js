@@ -31,7 +31,7 @@ module.exports = function demoLoader(source) {
       let formatMsg = e.msg
       if (e.loc && e.source)
         formatMsg = codeFrameColumns(e.source, { start: e.loc })
-      console.log(chalk.red("\nReact Demo Loader Parse Failed\n"))
+      console.log(chalk.red(`\n⚠️ Babel Parse Failed(${this.resourcePath})\n`))
       console.log(chalk.red(formatMsg))
       callback(null, createErrorComponent(formatMsg))
     }
