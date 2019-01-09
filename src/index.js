@@ -28,10 +28,10 @@ module.exports = function demoLoader(source) {
       const { map, code } = await transformJSCode(source, demos)
       callback(null, code, map)
     } catch (e) {
-      let formatMsg = e.msg
+      let formatMsg = e && e.message
       if (e.loc && e.source)
         formatMsg = codeFrameColumns(e.source, { start: e.loc })
-      console.log(chalk.red(`\n⚠️ Babel Parse Failed(${this.resourcePath})\n`))
+      console.log(chalk.red(`\n${e.message}(${this.resourcePath})\n`))
       console.log(chalk.red(formatMsg))
       callback(null, createErrorComponent(formatMsg))
     }

@@ -1,6 +1,6 @@
 {
   "name": "react-demo-loader",
-  "version": "1.6.8",
+  "version": "1.6.9",
   "description": "webpack loader for react demo",
   "main": "lib/index.js",
   "scripts": {
