@@ -1,6 +1,6 @@
 {
   "name": "react-demo-loader",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "webpack loader for react demo",
   "main": "lib/index.js",
   "scripts": {
@@ -13,9 +13,6 @@
       "prettier --write --tab-width 2 --no-semi",
       "git add"
     ]
-  },
-  "peerDependencies": {
-    "react-code-snippet": "^0.2.0"
   },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
@@ -41,7 +38,7 @@
     "nanoid": "^2.0.0",
     "parse5": "^5.1.0",
     "react": "^16.7.0",
-    "react-code-snippet": "^0.2.0",
+    "react-code-snippet": "^0.6.6",
     "react-docgen": "^2.21.0",
     "react-dom": "^16.7.0",
     "react-props-table": "^0.1.2",
