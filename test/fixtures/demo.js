@@ -28466,12 +28466,24 @@ var __DEFINE__ = function (fn) {
   };
 };
 
-var Demo_ixcuo_2 = __DEFINE__(function (module, exports) {
-  ReactDOM.render(React.createElement("div", null, "Hello world"));
+var Demo_rlybb_2 = __DEFINE__(function (module, exports) {
+  exports.__esModule = true;
+  exports.default = _default;
+
+  function _default() {
+    return React.createElement("div", null, "Hello world");
+  }
 });
 
-var Demo_yaets_3 = __DEFINE__(function (module, exports) {
-  ReactDOM.render(React.createElement("div", null, "Hello world123"));
+var Demo_ulqby_3 = __DEFINE__(function (module, exports) {
+  exports.__esModule = true;
+  exports.default = _default;
+
+  var _reactDom = __webpack_require__(/*! react-dom */ "react-dom");
+
+  function _default() {
+    return React.createElement("div", null, "Hello world123");
+  }
 });
 
 var __MARKDOWN__ = function () {
@@ -28496,11 +28508,11 @@ var __MARKDOWN__ = function () {
     code: "ReactDOM.render(<div>Hello world</div>)\n",
     justCode: false,
     lang: "jsx"
-  }, React.createElement(Demo_ixcuo_2, {})), React.createElement(ReactCodeSnippet, {
-    code: "ReactDOM.render(<div>Hello world123</div>)\n",
+  }, React.createElement(Demo_rlybb_2, {})), React.createElement(ReactCodeSnippet, {
+    code: "import {render} from 'react-dom'\n\nrender(<div>Hello world123</div>,modeNode)\n",
     justCode: false,
     lang: "jsx"
-  }, React.createElement(Demo_yaets_3, {})), React.createElement("div", {
+  }, React.createElement(Demo_ulqby_3, {})), React.createElement("div", {
     className: "react-demo-div"
   }, React.createElement("div", {
     className: "asdad react-demo-div"

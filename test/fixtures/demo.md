@@ -26,8 +26,9 @@ ReactDOM.render(<div>Hello world</div>)
 ```
 
 ```jsx
+import {render} from 'react-dom'
 
-ReactDOM.render(<div>Hello world123</div>)
+render(<div>Hello world123</div>,modeNode)
 
 ```
 <div class="asdad">

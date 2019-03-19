@@ -40,7 +40,8 @@ const transformDemoAst = ast => {
       ) {
         if (
           get(path.node, "callee.property.name") === "render" &&
-          get(path.node, "callee.object.name") === ReactDOMDefault
+          (get(path.node, "callee.object.name") === ReactDOMDefault ||
+            get(path.node, "callee.object.name") === "ReactDOM")
         ) {
           const jsx = get(path.node, "arguments[0]")
           path.insertAfter(template.ast`
